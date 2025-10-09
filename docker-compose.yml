@@ -1,11 +1,10 @@
 version: '3.8'
 
 services:
-
   waymo-e2e-loader:
-    # This tells Docker Compose to build the image from the Dockerfile in the current directory
     build: .
-    # This mounts the local 'waymo_dataset' folder into the container at '/waymo_dataset'
-    # The script inside the container can now access the data files.
     volumes:
       - ./waymo_dataset:/waymo_dataset
+    # This 'command' will be passed to the container when it starts
+    # It will override the CMD in your Dockerfile
+    command: ["python", "load_dataset.py"]
