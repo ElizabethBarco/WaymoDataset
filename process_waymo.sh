@@ -12,7 +12,7 @@ CONTAINER_DATA_DIR="/waymo_dataset/training"
 
 # 1. Get a list of all .tfrecord files in the GCS bucket
 echo "Fetching list of files from GCS..."
-# The 'gsutil ls' command lists the contents of the bucket
+
 # We use 'head -n 5' to only process the first 5 files for this example.
 # Remove ' | head -n 5' to process the entire dataset.
 file_list=$(gsutil ls "$GCS_BUCKET"/*.tfrecord* | head -n 5)
