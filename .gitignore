@@ -1,1 +1,23 @@
-/waymo_dataset/
+
+tutorial_vision_based_e2e_driving.ipynb
+# Virtual environment
+venv/
+env/
+*.pyc
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Downloaded data (temporary)
+waymo_dataset/downloads/
+*.tfrecord*
+
+# Local environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
