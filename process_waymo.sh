@@ -20,7 +20,7 @@ echo "✓ Build complete"
 
 # --- Main Loop ---
 echo "Fetching list of files from GCS..."
-file_list=$(gsutil ls "$GCS_BUCKET"/*.tfrecord* | head -n 5)
+file_list=$(gsutil ls "$GCS_BUCKET"/*.tfrecord* | head -n 266)
 
 for gcs_file_path in $file_list; do
     filename=$(basename "$gcs_file_path")
