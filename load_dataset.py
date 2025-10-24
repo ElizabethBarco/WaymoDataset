@@ -6,6 +6,8 @@ import sqlite3
 import os
 import json
 from datetime import datetime
+import cv2
+import io
 
 # ============================================================================
 # CONFIGURATION
@@ -187,8 +189,105 @@ def store_edge_case(conn, frame_id, file_name, timestamp, edge_case_type, severi
 # ============================================================================
 # IMAGE STITCHING & THUMBNAIL GENERATION
 # ============================================================================
-# TEMPORARILY DISABLED - Image processing functions removed for now
-# To re-enable: restore stitch_panorama(), create_thumbnail(), compress_image_to_bytes()
+def stitch_panorama(camera_images_dict, width=4096):
+    """
+    Stitch front 3 camera images into panorama.
+    
+    Focus on FRONT_LEFT, FRONT_CENTER, FRONT_RIGHT which are the primary driving cameras.
+    This matches the Waymo tutorial approach for front-facing 180° panorama.
+    
+    Args:
+        camera_images_dict: Dict of camera images {camera_name: image_array}
+        width: Output panorama width in pixels
+    
+    Returns:
+        panorama: Stitched image array
+    """
+    try:
+        # Ensure we have the three front cameras (matching tutorial naming)
+        front_cams = {
+            'FRONT_LEFT': camera_images_dict.get('FRONT_LEFT'),
+            'FRONT_CENTER': camera_images_dict.get('FRONT_CENTER'),
+            'FRONT_RIGHT': camera_images_dict.get('FRONT_RIGHT')
+        }
+        
+        valid_cams = {k: v for k, v in front_cams.items() if v is not None and isinstance(v, np.ndarray)}
+        
+        if len(valid_cams) == 0:
+            return None
+        
+        # Get reference height from first valid image
+        ref_height = None
+        for img in valid_cams.values():
+            if img is not None:
+                ref_height = img.shape[0]
+                break
+        
+        if ref_height is None:
+            return None
+        
+        # Resize all front cameras to reference height while maintaining aspect ratio
+        resized_front = {}
+        for cam_name in ['FRONT_LEFT', 'FRONT_CENTER', 'FRONT_RIGHT']:
+            img = front_cams.get(cam_name)
+            if img is not None and isinstance(img, np.ndarray):
+                h, w = img.shape[:2]
+                if h > 0:
+                    # Maintain aspect ratio
+                    new_w = int(w * (ref_height / h))
+                    resized_img = cv2.resize(img, (new_w, ref_height))
+                    resized_front[cam_name] = resized_img
+                else:
+                    resized_front[cam_name] = np.zeros((ref_height, 400, 3), dtype=np.uint8)
+            else:
+                resized_front[cam_name] = np.zeros((ref_height, 400, 3), dtype=np.uint8)
+        
+        # Stitch the 3 front cameras horizontally
+        panorama = np.hstack([
+            resized_front.get('FRONT_LEFT', np.zeros((ref_height, 400, 3), dtype=np.uint8)),
+            resized_front.get('FRONT_CENTER', np.zeros((ref_height, 400, 3), dtype=np.uint8)),
+            resized_front.get('FRONT_RIGHT', np.zeros((ref_height, 400, 3), dtype=np.uint8))
+        ])
+        
+        # Resize panorama to target width while maintaining aspect ratio
+        h, w = panorama.shape[:2]
+        if w > 0:
+            scale = width / w
+            new_h = int(h * scale)
+            panorama = cv2.resize(panorama, (width, new_h))
+        
+        return panorama
+    except Exception as e:
+        print(f"  ⚠ Error stitching panorama: {e}")
+        return None
+
+
+def create_thumbnail(panorama, max_width=512):
+    """Create thumbnail from panorama."""
+    try:
+        h, w = panorama.shape[:2]
+        if w > 0:
+            scale = max_width / w
+            new_h = int(h * scale)
+            thumbnail = cv2.resize(panorama, (max_width, new_h))
+            return thumbnail
+        return None
+    except Exception as e:
+        print(f"  ⚠ Error creating thumbnail: {e}")
+        return None
+
+
+def compress_image_to_bytes(image, quality=75):
+    """Compress image to JPEG bytes for database storage."""
+    try:
+        success, buffer = cv2.imencode('.jpg', image, [cv2.IMWRITE_JPEG_QUALITY, quality])
+        if success:
+            return buffer.tobytes()
+        return None
+    except Exception as e:
+        print(f"  ⚠ Error compressing image: {e}")
+        return None
+
 
 # ============================================================================
 # THRESHOLD MANAGEMENT
@@ -335,9 +434,46 @@ for bytes_example in data_iter:
     print(f"Accel Y: {motion_data['accel_y_min']:.2f} to {motion_data['accel_y_max']:.2f} m/s²")
     print(f"Intent: {intent}")
     
-    # Skip image processing for now - store as NULL
-    # TODO: Re-enable when image storage is needed
+    # Extract camera images and create panorama thumbnail
     panorama_thumbnail_bytes = None
+    try:
+        camera_images_dict = {}
+        
+        # Camera name indices in E2ED proto:
+        # 1 = FRONT_LEFT, 2 = FRONT_CENTER, 3 = FRONT_RIGHT
+        # Based on tutorial return_front3_cameras() function: order = [2, 1, 3]
+        camera_mapping = {
+            'FRONT_LEFT': 2,
+            'FRONT_CENTER': 1,
+            'FRONT_RIGHT': 3
+        }
+        
+        # Extract front 3 camera images using TensorFlow decoder (correct method)
+        for camera_name, camera_id in camera_mapping.items():
+            for index, image_content in enumerate(data.frame.images):
+                if image_content.name == camera_id:
+                    try:
+                        # Use TensorFlow to decode (matches tutorial approach)
+                        image_array = tf.io.decode_image(image_content.image).numpy()
+                        if image_array is not None:
+                            camera_images_dict[camera_name] = image_array
+                    except Exception as decode_err:
+                        print(f"    ⚠ Could not decode {camera_name}: {decode_err}")
+                    break
+        
+        # Create stitched panorama if we have images
+        if len(camera_images_dict) > 0:
+            panorama = stitch_panorama(camera_images_dict, width=4096)
+            if panorama is not None:
+                # Create thumbnail
+                thumbnail = create_thumbnail(panorama, max_width=512)
+                if thumbnail is not None:
+                    # Compress to bytes for database storage
+                    panorama_thumbnail_bytes = compress_image_to_bytes(thumbnail, quality=75)
+                    thumbnail_size_kb = len(panorama_thumbnail_bytes) / 1024 if panorama_thumbnail_bytes else 0
+                    print(f"  ✓ Panorama thumbnail created: {thumbnail_size_kb:.1f} KB")
+    except Exception as e:
+        print(f"  ⚠ Could not create panorama thumbnail: {e}")
     
     # STORE ALL FRAME DATA (regardless of whether it's an edge case)
     store_frame_data(

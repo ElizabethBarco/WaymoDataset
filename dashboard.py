@@ -45,14 +45,15 @@ def get_edge_cases_data():
             f.accel_y_min,
             f.accel_y_max,
             f.jerk_x_max,
-            f.jerk_y_max
+            f.jerk_y_max,
+            f.panorama_thumbnail
         FROM edge_cases ec
         LEFT JOIN frames f ON ec.frame_id = f.frame_id
         ORDER BY ec.severity DESC
         '''
         df = pd.read_sql_query(query, conn)
         
-        # Add panorama_thumbnail column if it doesn't exist
+        # Ensure panorama_thumbnail column exists (in case query returns empty or missing)
         if 'panorama_thumbnail' not in df.columns:
             df['panorama_thumbnail'] = None
         
@@ -346,98 +347,92 @@ app.layout = html.Div([
 )
 def display_thumbnail_modal(btn_clicks, close_clicks):
     """Display thumbnail modal when clicking on a frame row."""
-    # Check if close button was clicked
-    if close_clicks:
+    # Determine what triggered the callback
+    triggered = callback_context.triggered[0]['prop_id'] if callback_context.triggered else None
+    
+    # If close button was clicked, hide modal
+    if 'close-thumbnail-modal' in triggered:
         return {'display': 'none'}, '', '', ''
     
-    # If no thumbnail button clicked, hide modal
-    if not btn_clicks or sum(btn_clicks) == 0:
-        return {'display': 'none'}, '', '', ''
+    # If a thumbnail button was clicked
+    if triggered and 'thumbnail-btn' in triggered:
+        try:
+            # Extract frame_id from triggered button
+            button_id = json.loads(triggered.split('.')[0])
+            frame_id = button_id['index']  # This is now frame_id, not pagination index
+            
+            # Get the frame data by frame_id from the full dataframe
+            frame_rows = df[df['frame_id'] == frame_id]
+            
+            if len(frame_rows) == 0:
+                return {'display': 'none'}, '', '', ''
+            
+            frame_data = frame_rows.iloc[0]
+            
+            # Get thumbnail
+            thumbnail_bytes = frame_data['panorama_thumbnail']
+            if thumbnail_bytes is None or pd.isna(thumbnail_bytes):
+                return {'display': 'none'}, '', '', ''
+            
+            # Convert bytes to base64 image with proper JPEG header
+            thumbnail_b64 = 'data:image/jpeg;base64,' + base64.b64encode(thumbnail_bytes).decode()
+            
+            # Format info
+            info_html = html.Div([
+                html.Div([
+                    html.Span('Frame ID: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['frame_id']}")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('File: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['file_name']}")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Edge Case: ', style={'fontWeight': 'bold', 'color': '#d62728'}),
+                    html.Span(f"{frame_data['edge_case_type']}")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Severity: ', style={'fontWeight': 'bold', 'color': '#d62728'}),
+                    html.Span(f"{frame_data['severity']:.3f} m/s²")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Intent: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['intent']}")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Speed: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['speed_min']:.2f} - {frame_data['speed_max']:.2f} m/s")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Accel X: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['accel_x_min']:.3f} to {frame_data['accel_x_max']:.3f} m/s²")
+                ], style={'marginBottom': '8px'}),
+                html.Div([
+                    html.Span('Reason: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
+                    html.Span(f"{frame_data['reason']}")
+                ], style={'marginBottom': '0px'}),
+            ])
+            
+            modal_style = {
+                'display': 'block',
+                'position': 'fixed',
+                'zIndex': '1000',
+                'left': '0',
+                'top': '0',
+                'width': '100%',
+                'height': '100%',
+                'backgroundColor': 'rgba(0,0,0,0.7)',
+                'overflowY': 'auto'
+            }
+            
+            return modal_style, thumbnail_b64, f"Frame {frame_data['frame_id']} - {frame_data['edge_case_type']}", info_html
+        
+        except Exception as e:
+            print(f"Error displaying thumbnail: {e}")
+            return {'display': 'none'}, '', '', f"Error: {str(e)}"
     
-    # Find which button was clicked (get the frame index)
-    try:
-        if not callback_context.triggered:
-            return {'display': 'none'}, '', '', ''
-        
-        triggered_id = callback_context.triggered[0]['prop_id'].split('.')[0]
-        
-        # Extract index from triggered button
-        button_id = json.loads(triggered_id)
-        frame_idx = button_id['index']
-        
-        # Get the full filtered dataframe for this session
-        filtered_df_full = df.copy()
-        
-        # Apply all the same filters that were applied to the main table
-        # (We need to re-filter here to match the display)
-        # For now, we'll just use the frame index from the full dataframe
-        
-        if frame_idx >= len(filtered_df_full):
-            return {'display': 'none'}, '', '', ''
-        
-        frame_data = filtered_df_full.iloc[frame_idx]
-        
-        # Get thumbnail
-        thumbnail_bytes = frame_data['panorama_thumbnail']
-        if thumbnail_bytes is None or pd.isna(thumbnail_bytes):
-            return {'display': 'none'}, '', '', ''
-        
-        # Convert bytes to base64 image
-        thumbnail_b64 = 'data:image/jpeg;base64,' + base64.b64encode(thumbnail_bytes).decode()
-        
-        # Format info
-        info_html = html.Div([
-            html.Div([
-                html.Span('Frame ID: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['frame_id']}")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('File: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['file_name']}")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Edge Case: ', style={'fontWeight': 'bold', 'color': '#d62728'}),
-                html.Span(f"{frame_data['edge_case_type']}")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Severity: ', style={'fontWeight': 'bold', 'color': '#d62728'}),
-                html.Span(f"{frame_data['severity']:.3f} m/s²")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Intent: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['intent']}")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Speed: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['speed_min']:.2f} - {frame_data['speed_max']:.2f} m/s")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Accel X: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['accel_x_min']:.3f} to {frame_data['accel_x_max']:.3f} m/s²")
-            ], style={'marginBottom': '8px'}),
-            html.Div([
-                html.Span('Reason: ', style={'fontWeight': 'bold', 'color': '#1f77b4'}),
-                html.Span(f"{frame_data['reason']}")
-            ], style={'marginBottom': '0px'}),
-        ])
-        
-        modal_style = {
-            'display': 'block',
-            'position': 'fixed',
-            'zIndex': '1000',
-            'left': '0',
-            'top': '0',
-            'width': '100%',
-            'height': '100%',
-            'backgroundColor': 'rgba(0,0,0,0.7)',
-            'overflowY': 'auto'
-        }
-        
-        return modal_style, thumbnail_b64, f"Frame {frame_data['frame_id']}", info_html
-    
-    except Exception as e:
-        print(f"Error displaying thumbnail: {e}")
-        return {'display': 'none'}, '', '', f"Error: {str(e)}"
+    # Default: hide modal
+    return {'display': 'none'}, '', '', ''
 
 @callback(
     [Output('edge-case-distribution', 'figure'),
@@ -611,12 +606,22 @@ def update_charts(edge_case_type, file_name, severity_range, prev_clicks, next_c
         for j, col in enumerate(page_df.columns):
             if col == 'thumbnail':
                 # Make thumbnail cell clickable if it has data
-                if 'panorama_thumbnail' in filtered_df.columns and filtered_df.iloc[start_idx + i]['panorama_thumbnail'] is not None:
+                # Get the frame_id to find thumbnail in the original filtered_df
+                frame_id = int(page_df.iloc[i]['frame_id'])  # Convert to Python int from numpy.int64
+                thumbnail_exists = False
+                
+                # Search for this frame_id in filtered_df and check if it has a thumbnail
+                matching_rows = filtered_df[filtered_df['frame_id'] == frame_id]
+                if len(matching_rows) > 0 and 'panorama_thumbnail' in filtered_df.columns:
+                    thumb_data = matching_rows.iloc[0]['panorama_thumbnail']
+                    thumbnail_exists = thumb_data is not None and not pd.isna(thumb_data)
+                
+                if thumbnail_exists:
                     row_cells.append(
                         html.Td(
                             html.Button(
                                 '📷 View',
-                                id={'type': 'thumbnail-btn', 'index': start_idx + i},
+                                id={'type': 'thumbnail-btn', 'index': frame_id},
                                 n_clicks=0,
                                 style={
                                     'backgroundColor': '#4CAF50',
