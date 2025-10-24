@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 import plotly.graph_objs as go
 import plotly.express as px
-from dash import Dash, dcc, html, callback, Input, Output, State, callback_context
+from dash import Dash, dcc, html, callback, Input, Output, State, callback_context, ALL as all
 import os
 import base64
 import io
@@ -45,13 +45,17 @@ def get_edge_cases_data():
             f.accel_y_min,
             f.accel_y_max,
             f.jerk_x_max,
-            f.jerk_y_max,
-            f.panorama_thumbnail
+            f.jerk_y_max
         FROM edge_cases ec
         LEFT JOIN frames f ON ec.frame_id = f.frame_id
         ORDER BY ec.severity DESC
         '''
         df = pd.read_sql_query(query, conn)
+        
+        # Add panorama_thumbnail column if it doesn't exist
+        if 'panorama_thumbnail' not in df.columns:
+            df['panorama_thumbnail'] = None
+        
         conn.close()
         return df
     except Exception as e:
@@ -336,7 +340,7 @@ app.layout = html.Div([
      Output('thumbnail-modal-image', 'src'),
      Output('thumbnail-modal-title', 'children'),
      Output('thumbnail-modal-info', 'children')],
-    [Input({'type': 'thumbnail-btn', 'index': ...}, 'n_clicks'),
+    [Input({'type': 'thumbnail-btn', 'index': all}, 'n_clicks'),
      Input('close-thumbnail-modal', 'n_clicks')],
     prevent_initial_call=True
 )
@@ -564,8 +568,11 @@ def update_charts(edge_case_type, file_name, severity_range, prev_clicks, next_c
         'jerk_x_max', 'jerk_y_max'
     ]].copy()
     
-    # Add a thumbnail column indicator for display
-    table_df['thumbnail'] = filtered_df['panorama_thumbnail'].notna().apply(lambda x: '📷 View' if x else 'N/A')
+    # Add a thumbnail column indicator for display (only if panorama_thumbnail exists)
+    if 'panorama_thumbnail' in filtered_df.columns:
+        table_df['thumbnail'] = filtered_df['panorama_thumbnail'].notna().apply(lambda x: '📷 View' if x else 'N/A')
+    else:
+        table_df['thumbnail'] = 'N/A'
     
     # Round numeric columns
     numeric_cols = ['severity', 'speed_min', 'speed_max', 'accel_x_min', 'accel_x_max', 
@@ -604,7 +611,7 @@ def update_charts(edge_case_type, file_name, severity_range, prev_clicks, next_c
         for j, col in enumerate(page_df.columns):
             if col == 'thumbnail':
                 # Make thumbnail cell clickable if it has data
-                if filtered_df.iloc[start_idx + i]['panorama_thumbnail'] is not None:
+                if 'panorama_thumbnail' in filtered_df.columns and filtered_df.iloc[start_idx + i]['panorama_thumbnail'] is not None:
                     row_cells.append(
                         html.Td(
                             html.Button(
