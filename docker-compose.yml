@@ -1,10 +1,11 @@
-version: '3.8'
+
 
 services:
   waymo-e2e-loader:
     build: .
     volumes:
-      - ./waymo_dataset:/waymo_dataset
-    # This 'command' will be passed to the container when it starts
-    # It will override the CMD in your Dockerfile
-    command: ["python", "load_dataset.py"]
+      - ./waymo_dataset/downloads:/waymo_dataset/downloads
+      - ./waymo_dataset/results:/waymo_dataset/results
+    environment:
+      - RESULTS_DIR=/waymo_dataset/results
+    working_dir: /app

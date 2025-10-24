@@ -1,0 +1,788 @@
+=== Exploring: /waymo_dataset/downloads/test_202504211836-202504220845.tfrecord-00004-of-00266 ===
+
+✓ Successfully loaded dataset
+
+================================================================================
+FRAME 1
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: e0ae38e2d9675d9d889eaffcf10fe392-142
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=274412 bytes
+  Camera 1: name=1, size=327054 bytes
+  Camera 2: name=3, size=330503 bytes
+  Camera 3: name=4, size=561527 bytes
+  Camera 4: name=5, size=355152 bytes
+  Camera 5: name=8, size=218707 bytes
+  Camera 6: name=7, size=137739 bytes
+  Camera 7: name=6, size=192580 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-4.15, -0.24, N/A)
+  1: pos=(-3.33, -0.07, N/A)
+  2: pos=(-2.60, 0.03, N/A)
+  3: pos=(-1.97, 0.08, N/A)
+  4: pos=(-1.44, 0.10, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(3.00, 0.87)
+  1: vel=(2.64, 0.61)
+  2: vel=(2.29, 0.40)
+  3: vel=(1.92, 0.25)
+  4: vel=(1.56, 0.15)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.37, -0.31)
+  1: accel=(-0.35, -0.26)
+  2: accel=(-0.35, -0.21)
+  3: accel=(-0.37, -0.15)
+  4: accel=(-0.36, -0.10)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=0.00, max=3.12, mean=0.94 m/s
+  Accel X: min=-0.37, max=0.04 m/s²
+  Accel Y: min=-0.31, max=0.01 m/s²
+  Jerk X: min=-0.06, max=0.24 m/s³
+  Jerk Y: min=-0.01, max=0.06 m/s³
+
+--- DRIVING INTENT ---
+Intent: 3 (GO_RIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 2
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: b4f2e1d78ba737fd482a0d865845cffa-019
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=395361 bytes
+  Camera 1: name=1, size=353388 bytes
+  Camera 2: name=3, size=336967 bytes
+  Camera 3: name=4, size=366662 bytes
+  Camera 4: name=5, size=313803 bytes
+  Camera 5: name=8, size=288671 bytes
+  Camera 6: name=7, size=236095 bytes
+  Camera 7: name=6, size=261335 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-1.51, 0.00, N/A)
+  1: pos=(-1.51, 0.00, N/A)
+  2: pos=(-1.51, 0.00, N/A)
+  3: pos=(-1.51, 0.00, N/A)
+  4: pos=(-1.51, 0.00, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(0.00, 0.00)
+  1: vel=(0.00, 0.00)
+  2: vel=(0.00, 0.00)
+  3: vel=(0.00, 0.00)
+  4: vel=(0.00, 0.00)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(0.00, 0.00)
+  1: accel=(0.00, 0.00)
+  2: accel=(0.00, 0.00)
+  3: accel=(0.00, 0.00)
+  4: accel=(0.00, 0.00)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=0.00, max=1.99, mean=0.57 m/s
+  Accel X: min=0.00, max=0.34 m/s²
+  Accel Y: min=-0.00, max=0.00 m/s²
+  Jerk X: min=-0.02, max=0.19 m/s³
+  Jerk Y: min=-0.00, max=0.00 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 3
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 548ecd6a70f4e80136f702bab3623330-072
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=270682 bytes
+  Camera 1: name=1, size=266197 bytes
+  Camera 2: name=3, size=365973 bytes
+  Camera 3: name=4, size=230598 bytes
+  Camera 4: name=5, size=292527 bytes
+  Camera 5: name=8, size=182763 bytes
+  Camera 6: name=7, size=241301 bytes
+  Camera 7: name=6, size=170987 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-27.74, 0.23, N/A)
+  1: pos=(-25.58, 0.20, N/A)
+  2: pos=(-23.43, 0.17, N/A)
+  3: pos=(-21.33, 0.14, N/A)
+  4: pos=(-19.29, 0.11, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(8.63, -0.11)
+  1: vel=(8.52, -0.14)
+  2: vel=(8.27, -0.15)
+  3: vel=(8.05, -0.13)
+  4: vel=(7.65, -0.11)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.02, -0.03)
+  1: accel=(-0.12, -0.02)
+  2: accel=(-0.25, -0.01)
+  3: accel=(-0.22, 0.02)
+  4: accel=(-0.40, 0.01)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=6.67, max=8.63, mean=7.33 m/s
+  Accel X: min=-0.40, max=0.14 m/s²
+  Accel Y: min=-0.03, max=0.03 m/s²
+  Jerk X: min=-0.18, max=0.16 m/s³
+  Jerk Y: min=-0.04, max=0.04 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 4
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 97619d458753bee0f924d208fc2e697e-017
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=263623 bytes
+  Camera 1: name=1, size=294008 bytes
+  Camera 2: name=3, size=318509 bytes
+  Camera 3: name=4, size=418124 bytes
+  Camera 4: name=5, size=265412 bytes
+  Camera 5: name=8, size=217689 bytes
+  Camera 6: name=7, size=225270 bytes
+  Camera 7: name=6, size=220704 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-41.04, 0.22, N/A)
+  1: pos=(-38.10, 0.21, N/A)
+  2: pos=(-35.16, 0.19, N/A)
+  3: pos=(-32.24, 0.17, N/A)
+  4: pos=(-29.32, 0.14, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(11.76, -0.06)
+  1: vel=(11.73, -0.07)
+  2: vel=(11.69, -0.09)
+  3: vel=(11.61, -0.08)
+  4: vel=(11.54, -0.09)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.01, 0.01)
+  1: accel=(-0.03, -0.01)
+  2: accel=(-0.04, -0.02)
+  3: accel=(-0.08, 0.01)
+  4: accel=(-0.07, -0.00)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=9.31, max=11.76, mean=10.76 m/s
+  Accel X: min=-0.29, max=-0.01 m/s²
+  Accel Y: min=-0.02, max=0.03 m/s²
+  Jerk X: min=-0.13, max=0.07 m/s³
+  Jerk Y: min=-0.03, max=0.04 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 5
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 1bc4c5605ed3c2ed9349c8e97159bfcb-022
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=237865 bytes
+  Camera 1: name=1, size=270834 bytes
+  Camera 2: name=3, size=299129 bytes
+  Camera 3: name=4, size=311162 bytes
+  Camera 4: name=5, size=314794 bytes
+  Camera 5: name=8, size=232598 bytes
+  Camera 6: name=7, size=175028 bytes
+  Camera 7: name=6, size=166811 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-23.96, 0.50, N/A)
+  1: pos=(-22.46, 0.47, N/A)
+  2: pos=(-20.94, 0.43, N/A)
+  3: pos=(-19.42, 0.38, N/A)
+  4: pos=(-17.88, 0.33, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(6.07, -0.08)
+  1: vel=(6.07, -0.15)
+  2: vel=(6.13, -0.18)
+  3: vel=(6.19, -0.19)
+  4: vel=(6.24, -0.22)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(0.07, -0.09)
+  1: accel=(0.01, -0.06)
+  2: accel=(0.05, -0.03)
+  3: accel=(0.06, -0.01)
+  4: accel=(0.05, -0.03)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=6.07, max=6.71, mean=6.42 m/s
+  Accel X: min=-0.09, max=0.10 m/s²
+  Accel Y: min=-0.09, max=0.04 m/s²
+  Jerk X: min=-0.10, max=0.05 m/s³
+  Jerk Y: min=-0.02, max=0.03 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 6
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 0bc6ac23dd7245686067e0d00ae94e46-071
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=331183 bytes
+  Camera 1: name=1, size=343196 bytes
+  Camera 2: name=3, size=339157 bytes
+  Camera 3: name=4, size=320867 bytes
+  Camera 4: name=5, size=322147 bytes
+  Camera 5: name=8, size=187097 bytes
+  Camera 6: name=7, size=190833 bytes
+  Camera 7: name=6, size=196239 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-42.68, -0.08, N/A)
+  1: pos=(-39.81, -0.06, N/A)
+  2: pos=(-36.94, -0.05, N/A)
+  3: pos=(-34.07, -0.04, N/A)
+  4: pos=(-31.20, -0.03, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(11.46, 0.07)
+  1: vel=(11.48, 0.06)
+  2: vel=(11.49, 0.04)
+  3: vel=(11.49, 0.03)
+  4: vel=(11.46, 0.02)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.02, 0.02)
+  1: accel=(0.02, -0.01)
+  2: accel=(0.00, -0.02)
+  3: accel=(0.00, -0.01)
+  4: accel=(-0.03, -0.01)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=10.99, max=11.49, mean=11.34 m/s
+  Accel X: min=-0.11, max=0.02 m/s²
+  Accel Y: min=-0.02, max=0.02 m/s²
+  Jerk X: min=-0.04, max=0.04 m/s³
+  Jerk Y: min=-0.02, max=0.01 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 7
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 91f11216235d92e1c6c5b835edb18074-148
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=228129 bytes
+  Camera 1: name=1, size=239874 bytes
+  Camera 2: name=3, size=310659 bytes
+  Camera 3: name=4, size=210813 bytes
+  Camera 4: name=5, size=263551 bytes
+  Camera 5: name=8, size=181133 bytes
+  Camera 6: name=7, size=176022 bytes
+  Camera 7: name=6, size=192733 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-6.19, 2.33, N/A)
+  1: pos=(-6.08, 2.13, N/A)
+  2: pos=(-5.92, 1.88, N/A)
+  3: pos=(-5.71, 1.60, N/A)
+  4: pos=(-5.45, 1.31, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(0.22, -0.98)
+  1: vel=(0.35, -1.19)
+  2: vel=(0.50, -1.33)
+  3: vel=(0.67, -1.40)
+  4: vel=(0.83, -1.42)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(0.09, -0.23)
+  1: accel=(0.12, -0.21)
+  2: accel=(0.15, -0.14)
+  3: accel=(0.17, -0.07)
+  4: accel=(0.16, -0.02)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=1.00, max=2.50, mean=1.92 m/s
+  Accel X: min=0.09, max=0.21 m/s²
+  Accel Y: min=-0.23, max=0.22 m/s²
+  Jerk X: min=-0.03, max=0.03 m/s³
+  Jerk Y: min=-0.02, max=0.08 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 8
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: c9960e0ba2aaaefee9ac0f542bf8addf-073
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=253740 bytes
+  Camera 1: name=1, size=271811 bytes
+  Camera 2: name=3, size=354916 bytes
+  Camera 3: name=4, size=267976 bytes
+  Camera 4: name=5, size=303959 bytes
+  Camera 5: name=8, size=178459 bytes
+  Camera 6: name=7, size=211573 bytes
+  Camera 7: name=6, size=181398 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-20.29, 1.59, N/A)
+  1: pos=(-19.30, 1.25, N/A)
+  2: pos=(-18.22, 0.98, N/A)
+  3: pos=(-17.07, 0.75, N/A)
+  4: pos=(-15.85, 0.56, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(3.89, -1.79)
+  1: vel=(4.30, -1.48)
+  2: vel=(4.65, -1.20)
+  3: vel=(4.90, -0.97)
+  4: vel=(5.13, -0.79)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(0.39, 0.27)
+  1: accel=(0.41, 0.31)
+  2: accel=(0.35, 0.28)
+  3: accel=(0.25, 0.23)
+  4: accel=(0.23, 0.17)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=4.28, max=6.50, mean=5.59 m/s
+  Accel X: min=0.10, max=0.41 m/s²
+  Accel Y: min=-0.03, max=0.31 m/s²
+  Jerk X: min=-0.11, max=0.05 m/s³
+  Jerk Y: min=-0.08, max=0.03 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 9
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 6a36fcabd912f2e1e98b5b00dc4b06cc-079
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=372676 bytes
+  Camera 1: name=1, size=258656 bytes
+  Camera 2: name=3, size=444454 bytes
+  Camera 3: name=4, size=361064 bytes
+  Camera 4: name=5, size=377761 bytes
+  Camera 5: name=8, size=220687 bytes
+  Camera 6: name=7, size=193241 bytes
+  Camera 7: name=6, size=245145 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-39.80, 0.02, N/A)
+  1: pos=(-36.73, 0.03, N/A)
+  2: pos=(-33.72, 0.03, N/A)
+  3: pos=(-30.75, 0.04, N/A)
+  4: pos=(-27.83, 0.04, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(12.16, 0.03)
+  1: vel=(11.95, 0.01)
+  2: vel=(11.79, 0.01)
+  3: vel=(11.54, 0.00)
+  4: vel=(11.31, -0.01)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.21, -0.00)
+  1: accel=(-0.21, -0.02)
+  2: accel=(-0.16, -0.00)
+  3: accel=(-0.25, -0.01)
+  4: accel=(-0.23, -0.01)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=8.73, max=12.16, mean=10.38 m/s
+  Accel X: min=-0.30, max=-0.11 m/s²
+  Accel Y: min=-0.02, max=0.02 m/s²
+  Jerk X: min=-0.18, max=0.19 m/s³
+  Jerk Y: min=-0.04, max=0.03 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+FRAME 10
+================================================================================
+
+--- FRAME CONTEXT ---
+Frame name: 9f879c49966c156f9f844139c0d5cabc-100
+Timestamp (microseconds): 0
+
+Cameras available: 8
+  Camera 0: name=2, size=389324 bytes
+  Camera 1: name=1, size=382199 bytes
+  Camera 2: name=3, size=360362 bytes
+  Camera 3: name=4, size=367358 bytes
+  Camera 4: name=5, size=372632 bytes
+  Camera 5: name=8, size=201531 bytes
+  Camera 6: name=7, size=189057 bytes
+  Camera 7: name=6, size=214331 bytes
+
+Camera calibrations available: 8
+  Calibration 0: width=972, height=1079
+  Calibration 1: width=972, height=1079
+  Calibration 2: width=972, height=1079
+  Calibration 3: width=972, height=1079
+  Calibration 4: width=972, height=1079
+  Calibration 5: width=972, height=587
+  Calibration 6: width=972, height=551
+  Calibration 7: width=972, height=587
+
+--- FUTURE STATES (t=0 to 5s, @4Hz) ---
+No future_states field
+
+--- PAST STATES (t=-4s to 0, @4Hz) ---
+Number of past waypoints: 16
+
+Past positions (x, y, z):
+  0: pos=(-61.28, 0.18, N/A)
+  1: pos=(-57.23, 0.22, N/A)
+  2: pos=(-53.17, 0.25, N/A)
+  3: pos=(-49.12, 0.27, N/A)
+  4: pos=(-45.06, 0.27, N/A)
+
+Past velocities (vx, vy) m/s:
+  0: vel=(16.20, 0.18)
+  1: vel=(16.20, 0.13)
+  2: vel=(16.21, 0.06)
+  3: vel=(16.26, -0.02)
+  4: vel=(16.30, -0.06)
+
+Past accelerations (ax, ay) m/s²:
+  0: accel=(-0.05, -0.02)
+  1: accel=(-0.00, -0.05)
+  2: accel=(0.01, -0.07)
+  3: accel=(0.05, -0.07)
+  4: accel=(0.04, -0.05)
+  ... (11 more states)
+
+Past motion statistics:
+  Speed: min=16.20, max=16.45, mean=16.33 m/s
+  Accel X: min=-0.07, max=0.07 m/s²
+  Accel Y: min=-0.07, max=0.04 m/s²
+  Jerk X: min=-0.04, max=0.05 m/s³
+  Jerk Y: min=-0.03, max=0.03 m/s³
+
+--- DRIVING INTENT ---
+Intent: 1 (GO_STRAIGHT)
+
+--- PREFERENCE TRAJECTORIES (Human-rated) ---
+Number of preference trajectories: 0
+
+--- ALL AVAILABLE FIELDS ---
+  frame: ✓ YES
+  future_states: ✗ NO
+  past_states: ✓ YES
+  intent: ✓ YES
+  preference_trajectories: ✗ NO
+
+================================================================================
+Stopping after 10 frames for exploration purposes
+================================================================================
+
+✓ Exploration data saved to: ./waymo_dataset/results/exploration_20251023_040338.json
+
+================================================================================
+SUMMARY
+================================================================================
+Total frames explored: 10
+
+Data types found:
+  ✓ Frame data (images + calibrations)
+  ✓ Past motion states (position, velocity, acceleration)
+  ✓ Future trajectory targets
+  ✓ Driving intent labels
+  ✓ Human-rated preference trajectories
+
+Key insights:
+  - Past states: Historical motion data for edge case detection
+  - Future states: Trajectory targets for prediction
+  - Intent: Driving action labels
+  - Preference trajectories: Human-rated alternative paths
+================================================================================
